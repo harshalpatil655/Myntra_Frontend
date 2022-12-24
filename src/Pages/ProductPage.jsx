@@ -7,7 +7,7 @@ import { mensData, postcart } from "../Redux/AppReducer/action";
 import styles from "../CSS/ProductPage.module.css";
 import { Button, Rating, TextField } from "@mui/material";
 import { BsTruck, BsFillTagFill, BsListUl } from "react-icons/bs";
-
+let token = localStorage.getItem("token") || "";
 const ProductPage = () => {
   const { id } = useParams();
 
@@ -39,8 +39,13 @@ const ProductPage = () => {
   console.log(store);
 
   const handleCart = (product) => {
-    alert("Product Added to cart");
-    dispatch(postcart(product));
+    if (token !== "") {
+      alert("Product Added to cart");
+      dispatch(postcart(product));
+    } else {
+      alert("Please Login");
+      navigate("/login");
+    }
   };
 
   return (
